@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard du Projet de Classification</title>
+    <!-- Vous pouvez intégrer Bootstrap pour améliorer l'apparence -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Rapports et Analyses du Projet</h1>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h3>Évaluation du Modèle</h3>
+            <p><strong>Test Accuracy:</strong> {{ test_accuracy * 100 | round(2) }}%</p>
+            <p><strong>Hyperparamètres:</strong> T = {{ optimal_T }}, L = {{ optimal_L }}</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h3>Mots les plus Explicatifs</h3>
+            <ul>
+                {% for word in explanatory_words %}
+                <li>{{ word }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>
