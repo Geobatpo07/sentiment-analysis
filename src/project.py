@@ -354,9 +354,7 @@ def bag_of_words(texts, remove_stopword=False):
     indices_by_word = {}
     stopwords = set()
 
-    # Le répertoire courant de ce fichier (app/)
     current_dir = Path(__file__).resolve().parent
-    # Le répertoire 'data' se trouve à la racine du projet (niveau supérieur à app/)
     data_dir = current_dir.parent / 'data'
 
     if remove_stopword:
