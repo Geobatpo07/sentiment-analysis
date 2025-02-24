@@ -22,9 +22,9 @@ test_texts, test_labels = zip(*((sample['text'], sample['sentiment']) for sample
 
 dictionary = p1.bag_of_words(train_texts, True)
 
-train_bow_features = p1.extract_bow_feature_vectors(train_texts, dictionary, False)
-val_bow_features = p1.extract_bow_feature_vectors(val_texts, dictionary, False)
-test_bow_features = p1.extract_bow_feature_vectors(test_texts, dictionary, False)
+train_bow_features = p1.extract_bow_feature_vectors(train_texts, dictionary)
+val_bow_features = p1.extract_bow_feature_vectors(val_texts, dictionary)
+test_bow_features = p1.extract_bow_feature_vectors(test_texts, dictionary)
 
 #-------------------------------------------------------------------------------
 # Problem 5

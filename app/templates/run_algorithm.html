@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Run Algorithm - Classification Project{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Select an Algorithm to Execute</h1>
+    <form method="POST" action="{{ url_for('run_algorithm') }}">
+        <div class="form-group">
+            <label for="algorithm">Choose an algorithm:</label>
+            <select class="form-control" id="algorithm" name="algorithm" required>
+                <option value="">-- Select an algorithm --</option>
+                <option value="Perceptron">Perceptron</option>
+                <option value="Average Perceptron">Average Perceptron</option>
+                <option value="Pegasos">Pegasos</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Run Selected Algorithm</button>
+    </form>
+</div>
+{% endblock %}

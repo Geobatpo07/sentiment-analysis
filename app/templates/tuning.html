@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Tuning Results - Classification Project{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Hyperparameter Tuning Results</h1>
+    <p><strong>Selected Algorithm:</strong> {{ selected_algo }}</p>
+    {% for algo, result in tuning_results.items() %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h3>{{ algo }}</h3>
+            <p><strong>Tuned Parameter:</strong> {{ result.param }}</p>
+            <p><strong>Best Value:</strong> {{ result.best_param }}</p>
+            <div class="plot-container">
+                {{ result.plot | safe }}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <a href="{{ url_for('run_algorithm') }}" class="btn btn-secondary">Back to Algorithm Selection</a>
+</div>
+{% endblock %}

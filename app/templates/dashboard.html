@@ -1,33 +1,67 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard du Projet de Classification</title>
-    <!-- Vous pouvez intégrer Bootstrap pour améliorer l'apparence -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-<div class="container mt-5">
-    <h1 class="mb-4">Rapports et Analyses du Projet</h1>
+{% extends "base.html" %}
 
-    <div class="card mb-4">
-        <div class="card-body">
-            <h3>Évaluation du Modèle</h3>
-            <p><strong>Test Accuracy:</strong> {{ test_accuracy * 100 | round(2) }}%</p>
-            <p><strong>Hyperparamètres:</strong> T = {{ optimal_T }}, L = {{ optimal_L }}</p>
+{% block title %}Dashboard - Classification Project{% endblock %}
+
+{% block content %}
+<!-- Jumbotron Header -->
+<div class="jumbotron">
+    <h1 class="display-4">Project Reports and Analysis</h1>
+    <p class="lead">View model evaluation results, interpretability insights, and interactive toy data visualization below.</p>
+</div>
+
+<!-- Model Evaluation -->
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Model Evaluation</h3>
+                <p class="card-text"><strong>Test Accuracy:</strong> {{ test_accuracy * 100 | round(2) }}%</p>
+                <p class="card-text"><strong>Hyperparameters:</strong> T = {{ optimal_T }}, L = {{ optimal_L }}</p>
+            </div>
         </div>
     </div>
-
-    <div class="card">
-        <div class="card-body">
-            <h3>Mots les plus Explicatifs</h3>
-            <ul>
-                {% for word in explanatory_words %}
-                <li>{{ word }}</li>
-                {% endfor %}
-            </ul>
+    <!-- Word Cloud Section -->
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Word Cloud</h3>
+                <div class="text-center">
+                    <img src="data:image/png;base64,{{ wordcloud_img }}" alt="Word Cloud" class="img-fluid">
+                </div>
+            </div>
         </div>
     </div>
 </div>
-</body>
-</html>
+
+<!-- Toy Data Visualization and Algorithm Selection -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Toy Data Classification Visualization</h3>
+                <!-- Form to select algorithm for toy data graph -->
+                <form method="GET" action="/">
+                    <div class="form-group">
+                        <label for="toy_algo">Select Algorithm for Toy Data Graph:</label>
+                        <select class="form-control" id="toy_algo" name="toy_algo">
+                            <option value="Pegasos" {% if toy_algo == "Pegasos" %}selected{% endif %}>Pegasos</option>
+                            <option value="Perceptron" {% if toy_algo == "Perceptron" %}selected{% endif %}>Perceptron</option>
+                            <option value="Average Perceptron" {% if toy_algo == "Average Perceptron" %}selected{% endif %}>Average Perceptron</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Update Toy Graph</button>
+                </form>
+                <!-- Display Toy Data Plot -->
+                <div class="mt-3">
+                    {{ toy_plot | safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Button to Navigate to Algorithm Selection -->
+<div class="text-center mt-4">
+    <a href="/run_algorithm" class="btn btn-lg btn-primary">Select and Run an Algorithm</a>
+</div>
+{% endblock %}
